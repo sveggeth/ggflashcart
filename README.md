@@ -145,24 +145,6 @@ to go back to the plain OS at any time.
 | Wheel / list | Start | Quick Menu |
 | Favourites wheel | 2 | back to the top level |
 
-## How it works (short version)
-
-* The name table holds exactly four 7-row slots, so the wheel scrolls in
-  hardware with the VDP's vertical scroll, 56 px per step. The slot that is
-  off screen is loaded while you look at the others.
-* Each slot has 72 tiles for its picture. Empty and repeated 8×8 blocks
-  cost nothing, which is how wide logos reach 144 px.
-* The frame is four sprites. The banner is drawn into the background rows
-  at the bottom of the screen and comes off during a scroll.
-* The wheel's hiding rules run inside the OS's folder loader, but only
-  while it fills the list the browser shows. Path lookups such as `/SAVE`
-  (save RAM) are never filtered.
-* New code lives in space freed in the OS image: the free block at
-  `$70EC`, the Hex View, the USB loaders, the About screen, and padding
-  after the `EDOS` header. `tools/check_mso.py` refuses any image that
-  changes the hardware layer or the flash-writing code (`$0201-$0762`,
-  `os_update_from_sd`).
-
 ## Credits
 
 * **EverDrive GG OS** by [Krikzz](https://krikzz.com). This project only
