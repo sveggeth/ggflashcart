@@ -3,7 +3,8 @@
 (OS v9 + wheel, build 9 or later: pack format 2, larger art).
 
 Usage:
-  python3 make_thumbs2.py ART_DIR ROM_DIR [ROM_DIR ...] -o OUT_DIR [--preview preview.png]
+  python3 make_thumbs.py ART_DIR ROM_DIR [ROM_DIR ...] -o OUT_DIR [--preview preview.png]
+                         [--folder "NAME=picture.png" ...]
 
   ART_DIR   PNG/JPG images named like the ROMs, e.g.
             "Sonic Chaos (USA, Europe).png" for "Sonic Chaos (USA, Europe).gg".
@@ -11,6 +12,8 @@ Usage:
             match too. Transparent logos work best (wheel packs).
   ROM_DIR   folders with your .gg / .sms files (only the names are used)
   OUT_DIR   becomes /THUMBS on the SD card; the script writes thumbs.pak there
+  --folder  a picture for a folder (or "Favourites"), e.g.
+            --folder "GG=gamegear.png" --folder "Master system=sms.png"
 
 Each picture is drawn as large as the wheel allows: up to 144x56 pixels, and
 at most 72 different 8x8 blocks (empty and repeated blocks are free). Wide
@@ -59,8 +62,25 @@ def norm(s):
     return s.lower()
 
 
-def load(path):
+def key_background(im):
+    """An opaque picture on a flat background (all four corners the same colour):
+    make that background transparent, so it costs no tiles and gets cropped."""
+    px = np.asarray(im).astype(np.int32)
+    if px[:, :, 3].min() < 255:
+        return im                                  # already has transparency
+    h, w = px.shape[:2]
+    corners = np.array([px[0, 0, :3], px[0, w - 1, :3], px[h - 1, 0, :3], px[h - 1, w - 1, :3]])
+    if np.abs(corners - corners[0]).max() > 12:
+        return im                                  # no flat background
+    d = np.sqrt(((px[:, :, :3] - corners.mean(0)) ** 2).sum(-1))
+    px[:, :, 3] = np.clip((d - 24) * 8, 0, 255)    # soft edge from 24 to 56 away
+    return Image.fromarray(px.astype(np.uint8), 'RGBA')
+
+
+def load(path, key=False):
     im = Image.open(path).convert('RGBA')
+    if key:
+        im = key_background(im)
     a = im.getchannel('A').point(lambda v: 255 if v > 24 else 0)
     bb = a.getbbox()
     return im.crop(bb) if bb else im
@@ -233,14 +253,19 @@ def cram(p0, p1):
 
 
 def write_pack(path, entries, pal):
-    seen, items = {}, []
+    """entries: (name, record); the same record object under several names is stored once."""
+    seen, items, datas, where = {}, [], [], {}
     for fn, data in entries:
         h = djb2(fn)
         if h in seen:
-            print('warning: %r and %r share a hash, keeping the first' % (seen[h], fn))
+            if seen[h] != fn:
+                print('warning: %r and %r share a hash, keeping the first' % (seen[h], fn))
             continue
         seen[h] = fn
-        items.append((h, data))
+        if id(data) not in where:
+            where[id(data)] = len(datas)
+            datas.append(data)
+        items.append((h, where[id(data)]))
     k = 1
     while True:
         buckets = [[] for _ in range(k)]
@@ -264,9 +289,9 @@ def write_pack(path, entries, pal):
         for j, i in enumerate(b):
             o = 8 + j * 8
             sec[o:o + 4] = items[i][0].to_bytes(4, 'little')
-            sec[o + 4:o + 6] = (first + 5 * i).to_bytes(2, 'little')
+            sec[o + 4:o + 6] = (first + 5 * items[i][1]).to_bytes(2, 'little')
         out += sec
-    for _, data in items:
+    for data in datas:
         out += data
     with open(path, 'wb') as f:
         f.write(out)
@@ -279,6 +304,7 @@ def main():
     ap.add_argument('roms', nargs='+')
     ap.add_argument('-o', '--out', required=True)
     ap.add_argument('--preview')
+    ap.add_argument('--folder', action='append', default=[], metavar='NAME=PICTURE')
     a = ap.parse_args()
 
     arts = {}
@@ -295,13 +321,24 @@ def main():
     found = [(f, arts[norm(b)]) for b, f in games if norm(b) in arts]
     missing = [b for b, f in games if norm(b) not in arts]
     print('%d ROMs, %d with art, %d without' % (len(games), len(found), len(missing)))
+    for spec in a.folder:
+        name, _, pic = spec.partition('=')
+        if not os.path.isfile(pic):
+            sys.exit('--folder %r: no such picture %r' % (name, pic))
+        found.append((name, pic))
+        if len(name) <= 8 and '.' not in name:
+            # a folder stored with only a short DOS name (e.g. "GG") reaches
+            # the OS as its 11-character 8.3 form, "GG" + 9 spaces
+            found.append((name.upper().ljust(11), pic))
+        print('folder %r: %s' % (name, os.path.basename(pic)))
     if not found:
         sys.exit('nothing to convert')
 
     srcs = {}
+    folder_pics = {spec.partition('=')[2] for spec in a.folder}
     for _, p in found:
         if p not in srcs:
-            im = load(p)
+            im = load(p, key=p in folder_pics)
             srcs[p] = (im, fit_scale(im))
     placed = {p: place(im, s) for p, (im, s) in srcs.items()}
     p0, p1 = build_palettes(list(placed.values()))
