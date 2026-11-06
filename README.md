@@ -3,7 +3,7 @@
 A scrolling **wheel of game art** for the Game Gear flash cart menu, in the
 style of an emulator front end. It is a patch for **EverDrive GG OS v9**
 (`os-v9.mso`, by Krikzz), as used by EverDrive GG-compatible carts such as
-the **Flash Gear Pro** (board "Flash Gear Pro ©2020"), which is the cart it
+the **Flash Gear Pro** (board "Flash Gear Pro"), which is the cart it
 was developed and tested on.
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-PayPal-0070ba?logo=paypal&logoColor=white)](https://paypal.me/ggflashcart)
