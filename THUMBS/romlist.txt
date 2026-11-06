@@ -1,0 +1,641 @@
+./GG/5 in 1 Funpak (USA).gg
+./GG/Addams Family, The (World).gg
+./GG/Adventures of Batman & Robin, The (USA, Europe).gg
+./GG/Aerial Assault (World).gg
+./GG/Aladdin (USA, Europe).gg
+./GG/Alien 3 (USA, Europe).gg
+./GG/Alien Syndrome (USA, Europe).gg
+./GG/Andre Agassi Tennis (USA).gg
+./GG/Arcade Classics (USA).gg
+./GG/Arch Rivals (USA).gg
+./GG/Arena (USA, Europe).gg
+./GG/Ariel the Little Mermaid (USA, Europe).gg
+./GG/Asterix and the Great Rescue (Europe) (En,Fr,De,Es,It).gg
+./GG/Asterix and the Great Rescue (USA).gg
+./GG/Asterix and the Secret Mission (Europe) (En,Fr,De).gg
+./GG/Ax Battler - A Legend of Golden Axe (USA, Europe).gg
+./GG/Ayrton Senna's Super Monaco GP II (USA, Europe).gg
+./GG/Baku Baku Animal (Europe).gg
+./GG/Barbie Super Model (Unknown) (Proto).gg
+./GG/Bare Knuckle II ~ Streets of Rage 2 ~ Streets of Rage II (World).gg
+./GG/Bare Knuckle ~ Streets of Rage (World).gg
+./GG/Bartman Meets Radioactive Man (USA).gg
+./GG/Batman Forever (World).gg
+./GG/Batman Returns (World).gg
+./GG/Batter Up (USA, Europe).gg
+./GG/Battleship (USA, Europe).gg
+./GG/Battletoads (USA).gg
+./GG/Beavis and Butt-Head (USA, Europe).gg
+./GG/Berenstain Bears' Camping Adventure, The (USA).gg
+./GG/Bonkers Wax Up! (USA, Europe).gg
+./GG/Bram Stoker's Dracula (Europe).gg
+./GG/Bram Stoker's Dracula (USA).gg
+./GG/Bubble Bobble (USA, Europe).gg
+./GG/Bugs Bunny in Double Trouble (USA, Europe).gg
+./GG/Bust-A-Move (USA, Europe).gg
+./GG/CJ Elephant Fugitive (Europe).gg
+./GG/Caesars Palace (USA).gg
+./GG/Captain America and the Avengers (USA, Europe).gg
+./GG/Casino Funpak (USA).gg
+./GG/Castle of Illusion Starring Mickey Mouse (USA, Europe).sms
+./GG/Chakan (USA, Europe).gg
+./GG/Championship Hockey (Europe).gg
+./GG/Cheese Cat-Astrophe Starring Speedy Gonzales (Europe) (En,Fr,De,Es).gg
+./GG/Chessmaster, The (USA, Europe).gg
+./GG/Chicago Syndicate (USA, Europe).gg
+./GG/Choplifter III (USA).gg
+./GG/Chuck Rock (World).gg
+./GG/Chuck Rock II - Son of Chuck (Europe).gg
+./GG/Chuck Rock II - Son of Chuck (USA).gg
+./GG/Cliffhanger (USA).gg
+./GG/Clutch Hitter (USA).gg
+./GG/Columns (USA, Europe).gg
+./GG/Cool Spot (Europe).gg
+./GG/Cool Spot (USA).gg
+./GG/Cosmic Spacehead (Europe).gg
+./GG/Crazy Faces (Unknown) (Proto).gg
+./GG/Crystal Warriors (USA, Europe).gg
+./GG/Cutthroat Island (USA, Europe).gg
+./GG/Daffy Duck in Hollywood (Europe) (En,Fr,De,Es,It).gg
+./GG/Deep Duck Trouble Starring Donald Duck (USA, Europe).gg
+./GG/Defenders of Oasis (USA, Europe).gg
+./GG/Desert Speedtrap Starring Road Runner and Wile E. Coyote (Europe) (En,Fr,De,Es,It).gg
+./GG/Desert Speedtrap Starring Road Runner and Wile E. Coyote (USA).gg
+./GG/Desert Strike (Europe) (En,Fr,De,Es).gg
+./GG/Desert Strike - Return to the Gulf (USA).gg
+./GG/Devilish (Europe).gg
+./GG/Devilish (USA).gg
+./GG/Double Dragon (USA, Europe).gg
+./GG/Dr. Franken (Unknown) (Proto).gg
+./GG/Dr. Robotnik's Mean Bean Machine (USA, Europe).gg
+./GG/Dragon - The Bruce Lee Story (Europe).gg
+./GG/Dragon - The Bruce Lee Story (USA).gg
+./GG/Dragon Crystal (USA, Europe).gg
+./GG/Dropzone (Europe).gg
+./GG/Dynamite Headdy (USA, Europe).gg
+./GG/Earthworm Jim (Europe).gg
+./GG/Earthworm Jim (USA).gg
+./GG/Ecco - The Tides of Time (USA, Europe).gg
+./GG/Ecco the Dolphin (USA, Europe).gg
+./GG/Ernie Els Golf (Europe) (En,Fr,De,Es,It).gg
+./GG/Evander Holyfield's 'Real Deal' Boxing (USA, Europe).gg
+./GG/Excellent Dizzy Collection, The (Europe).sms
+./GG/F-15 Strike Eagle (USA, Europe).gg
+./GG/F1 (USA, Europe).gg
+./GG/F1 - World Championship Edition (Europe).gg
+./GG/FIFA International Soccer (USA, Europe).gg
+./GG/FIFA Soccer 96 (USA, Europe) (En,Fr,De,Es).gg
+./GG/Factory Panic (Europe).gg
+./GG/Fantastic Dizzy (Europe) (En,Fr,De,Es,It).sms
+./GG/Fantasy Zone (USA).gg
+./GG/Fatal Fury Special (Europe).gg
+./GG/Fatal Fury Special (USA).gg
+./GG/Foreman for Real (World).gg
+./GG/Frank Thomas Big Hurt Baseball (USA).gg
+./GG/Fred Couples' Golf (USA).gg
+./GG/Frogger (USA) (Proto).gg
+./GG/G-LOC - Air Battle (USA, Europe).gg
+./GG/GP Rider (USA, Europe).gg
+./GG/Galaga 2 (Europe).gg
+./GG/Garfield - Caught in the Act (USA, Europe).gg
+./GG/Gear Works (USA).gg
+./GG/George Foreman's KO Boxing (USA, Europe).gg
+./GG/Greendog - The Beached Surfer Dude! (USA, Europe).gg
+./GG/Halley Wars (USA, Europe).gg
+./GG/Home Alone (USA, Europe).gg
+./GG/Hook (Europe).gg
+./GG/Hook (USA).gg
+./GG/Hurricanes (Europe).gg
+./GG/Incredible Crash Dummies, The (World).gg
+./GG/Incredible Hulk, The (USA, Europe).gg
+./GG/Indiana Jones and the Last Crusade (USA, Europe).gg
+./GG/Iron Man X-O Manowar in Heavy Metal (USA, Europe).gg
+./GG/Itchy & Scratchy Game, The (USA, Europe).gg
+./GG/James Bond 007 - The Duel (Europe).gg
+./GG/James Pond 3 - Operation Starfi5h (Europe).gg
+./GG/James Pond II - Codename RoboCod (Europe).gg
+./GG/James Pond II - Codename RoboCod (USA).gg
+./GG/Jang Pung II (Korea) (Unl).gg
+./GG/Jeopardy! (USA).gg
+./GG/Jeopardy! - Sports Edition (USA, Europe).gg
+./GG/Joe Montana Football (USA, Europe).gg
+./GG/Journey from Darkness - Strider Returns (USA, Europe).gg
+./GG/Judge Dredd (USA, Europe).gg
+./GG/Junction (USA).gg
+./GG/Jungle Book, The (Europe).gg
+./GG/Jungle Book, The (USA).gg
+./GG/Jungle Strike (USA).gg
+./GG/Jurassic Park (USA, Europe).gg
+./GG/Kawasaki Superbike Challenge (USA, Europe).gg
+./GG/Klax (USA, Europe).gg
+./GG/Krusty's Fun House (USA, Europe).gg
+./GG/Land of Illusion Starring Mickey Mouse (USA, Europe).gg
+./GG/Last Action Hero (USA).gg
+./GG/Legend of Illusion Starring Mickey Mouse (USA, Europe).gg
+./GG/Lemmings (World).gg
+./GG/Lemmings 2 - The Tribes (Unknown) (Proto).gg
+./GG/Lion King, The (Europe).gg
+./GG/Lion King, The (USA).gg
+./GG/Lost World, The - Jurassic Park (USA).gg
+./GG/Lucky Dime Caper Starring Donald Duck, The (USA, Europe).gg
+./GG/MLBPA Baseball (USA).gg
+./GG/Madden 96 (USA, Europe).gg
+./GG/Madden NFL 95 (USA).gg
+./GG/Magical Puzzle Popils (World) (En,Ja).gg
+./GG/Majors Pro Baseball, The (USA).gg
+./GG/Marble Madness (USA, Europe).gg
+./GG/Marko's Magic Football (Europe) (En,Fr,De,Es).gg
+./GG/Master of Darkness (Europe).gg
+./GG/Mega Man (USA).gg
+./GG/Mick & Mack as the Global Gladiators (USA, Europe).gg
+./GG/Mickey's Ultimate Challenge (USA).gg
+./GG/Micro Machines (Europe).gg
+./GG/Micro Machines 2 - Turbo Tournament (Europe).gg
+./GG/Mighty Morphin Power Rangers (USA, Europe).gg
+./GG/Mighty Morphin Power Rangers - The Movie (USA, Europe).gg
+./GG/Monster Truck Wars (USA, Europe).gg
+./GG/Mortal Kombat (USA, Europe).gg
+./GG/Mortal Kombat 3 (Europe).gg
+./GG/Mortal Kombat II (World).gg
+./GG/Ms. Pac-Man (USA).gg
+./GG/NBA Action Starring David Robinson (USA).gg
+./GG/NBA Jam (USA) (Rev 1).gg
+./GG/NBA Jam (USA, Europe).gg
+./GG/NBA Jam - Tournament Edition (World).gg
+./GG/NFL '95 (USA).gg
+./GG/NFL Quarterback Club '96 (USA, Europe).gg
+./GG/NFL Quarterback Club (World).gg
+./GG/NHL All-Star Hockey (USA).gg
+./GG/NHL Hockey (USA, Europe).gg
+./GG/Ninja Gaiden (USA, Europe).gg
+./GG/Olympic Gold (Europe) (En,Fr,De,Es,It,Nl,Pt,Sv) (Rev 1).sms
+./GG/Ottifants, The (Europe) (En,Fr,De,Es,It).gg
+./GG/Out Run (Europe).gg
+./GG/Out Run Europa (Europe).gg
+./GG/Out Run Europa (USA).sms
+./GG/PGA Tour 96 (USA, Europe).gg
+./GG/PGA Tour Golf (USA) (Rev 1).gg
+./GG/PGA Tour Golf (USA, Europe).gg
+./GG/PGA Tour Golf II (USA, Europe).gg
+./GG/Pac-Attack (USA, Europe).gg
+./GG/Pac-In-Time (Unknown) (Proto).gg
+./GG/Pac-Man (USA).gg
+./GG/Paperboy (USA, Europe).gg
+./GG/Paperboy 2 (USA, Europe).gg
+./GG/Pengo (USA, Europe).gg
+./GG/Pete Sampras Tennis (Europe).gg
+./GG/Phantom 2040 (USA, Europe).gg
+./GG/Pinball Dreams (USA).gg
+./GG/Poker Face Paul's Blackjack (USA).gg
+./GG/Poker Face Paul's Gin (USA).gg
+./GG/Poker Face Paul's Poker (USA).gg
+./GG/Poker Face Paul's Solitaire (USA).gg
+./GG/Power Drive (Europe).gg
+./GG/Predator 2 (USA, Europe).sms
+./GG/Primal Rage (USA, Europe).gg
+./GG/Prince of Persia (USA, Europe).sms
+./GG/Psychic World (USA, Europe) (Rev 1).gg
+./GG/Putt & Putter (USA, Europe).gg
+./GG/Quest for the Shaven Yak Starring Ren Hoek & Stimpy (USA, Europe).gg
+./GG/R.B.I. Baseball '94 (USA).gg
+./GG/R.C. Grand Prix (USA, Europe).sms
+./GG/Revenge of Drancon (USA).gg
+./GG/Riddick Bowe Boxing (USA).gg
+./GG/Rise of the Robots (USA, Europe).gg
+./GG/Ristar - The Shooting Star (World).gg
+./GG/Road Rash (Europe).gg
+./GG/Road Rash (USA).gg
+./GG/RoboCop 3 (World).gg
+./GG/RoboCop versus The Terminator (USA, Europe).gg
+./GG/S.S. Lucifer - Man Overboard! (Europe).gg
+./GG/Samurai Shodown (USA).gg
+./GG/Scratch Golf (USA).gg
+./GG/Sega Game Pack 4 in 1 (Europe).gg
+./GG/Sensible Soccer (Europe).gg
+./GG/Shaq Fu (USA, Europe).gg
+./GG/Shining Force II - The Sword of Hajya (USA).gg
+./GG/Shinobi (USA, Europe).gg
+./GG/Shinobi II - The Silent Fury (World) (Ja).gg
+./GG/Side Pocket (USA).gg
+./GG/Simpsons, The - Bart vs. the Space Mutants (USA, Europe).gg
+./GG/Simpsons, The - Bart vs. the World (World).gg
+./GG/Slider (USA, Europe).gg
+./GG/Smurfs Travel the World, The (Europe) (En,Fr,De,Es).gg
+./GG/Smurfs, The (Europe) (En,Fr,De,Es).gg
+./GG/Solitaire FunPak (USA).gg
+./GG/Solitaire Poker (USA, Europe).gg
+./GG/Sonic Blast (World).gg
+./GG/Sonic Chaos (USA, Europe).gg
+./GG/Sonic Labyrinth (World).gg
+./GG/Sonic The Hedgehog (World) (Proto).gg
+./GG/Sonic The Hedgehog (World) (Rev 1).gg
+./GG/Sonic The Hedgehog - Triple Trouble (USA, Europe).gg
+./GG/Sonic The Hedgehog 2 (World).gg
+./GG/Sonic The Hedgehog Spinball (USA, Europe).gg
+./GG/Space Harrier (World).gg
+./GG/Spider-Man - Return of the Sinister Six (USA, Europe).gg
+./GG/Spider-Man - X-Men - Arcade's Revenge (USA).gg
+./GG/Spider-Man vs. The Kingpin (USA, Europe).gg
+./GG/Spirou (Europe) (Proto).gg
+./GG/Sports Illustrated Championship Football & Baseball (USA, Europe).gg
+./GG/Sports Trivia (USA).gg
+./GG/Sports Trivia - Championship Edition (USA, Europe).gg
+./GG/Star Trek - The Next Generation - The Advanced Holodeck Tutorial (USA).gg
+./GG/Star Trek Generations - Beyond the Nexus (USA, Europe).gg
+./GG/Star Wars (Europe).gg
+./GG/Star Wars (USA).gg
+./GG/Stargate (World).gg
+./GG/Street Hero (USA) (Proto 1).gg
+./GG/Street Hero (USA) (Proto 2).gg
+./GG/Striker (Europe) (En,Fr,De,Es,It).gg
+./GG/Super Battletank (USA).gg
+./GG/Super Columns (USA, Europe).gg
+./GG/Super Monaco GP (USA, Europe).gg
+./GG/Super Off Road (USA, Europe).gg
+./GG/Super Return of the Jedi (USA, Europe).gg
+./GG/Super Smash T.V. (World).gg
+./GG/Super Space Invaders (USA, Europe).gg
+./GG/Superman - The Man of Steel (Europe).gg
+./GG/Surf Ninjas (USA).gg
+./GG/T2 - The Arcade Game (USA, Europe).gg
+./GG/Tails Adventures (World) (En,Ja).gg
+./GG/Taito Chase H.Q. (USA).gg
+./GG/TaleSpin (USA, Europe).gg
+./GG/Tarzan - Lord of the Jungle (Europe).gg
+./GG/Taz in Escape from Mars (USA, Europe).gg
+./GG/Taz-Mania - The Search for the Lost Seabirds (USA, Europe).gg
+./GG/Tempo Jr. (World).gg
+./GG/Tengen World Cup Soccer (USA, Europe).gg
+./GG/Terminator 2 - Judgment Day (World).gg
+./GG/Terminator, The (USA, Europe).gg
+./GG/Tesserae (USA, Europe).gg
+./GG/Tintin in Tibet (Europe) (En,Fr,De,Es,Nl,Sv).gg
+./GG/Tom and Jerry - The Movie (USA, Europe).gg
+./GG/True Lies (World).gg
+./GG/Urban Strike (USA, Europe).gg
+./GG/VR Troopers (USA, Europe).gg
+./GG/Vampire - Master of Darkness (USA).gg
+./GG/Virtua Fighter Animation (USA, Europe).gg
+./GG/WWF Raw (USA, Europe).gg
+./GG/WWF Wrestlemania Steel Cage Challenge (Europe).sms
+./GG/Wheel of Fortune (USA).gg
+./GG/Wimbledon (World).gg
+./GG/Winter Olympics - Lillehammer '94 (USA, Europe) (En,Fr,De,Es,It,Pt,Sv,No).gg
+./GG/Wizard Pinball (Europe).gg
+./GG/Wolfchild (Europe).gg
+./GG/Wonder Boy (Europe).gg
+./GG/Wonder Boy - The Dragon's Trap (Europe).gg
+./GG/Woody Pop (World) (Rev 1).gg
+./GG/Woody Pop (World).gg
+./GG/World Class Leader Board (USA, Europe).gg
+./GG/World Cup USA 94 (USA, Europe) (En,Fr,De,Es,It,Nl,Pt,Sv).gg
+./GG/World Series Baseball '95 (USA).gg
+./GG/World Series Baseball (USA) (Rev 1).gg
+./GG/World Series Baseball (USA).gg
+./GG/X-Men (USA).gg
+./GG/X-Men - Gamemaster's Legacy (USA, Europe).gg
+./GG/X-Men - Mojo World (USA, Europe).gg
+./GG/Yogi Bear in Yogi Bear's Goldrush (Unknown) (Proto).gg
+./GG/Zool - Ninja of the 'Nth' Dimension (Europe).gg
+./GG/Zool - Ninja of the 'Nth' Dimension (USA).gg
+./GG/Zoop (USA).gg
+./Master system/Action Fighter (USA) (Rev-A).sms
+./Master system/Addams Family, The (Europe).sms
+./Master system/Aerial Assault (USA).sms
+./Master system/After Burner (USA).sms
+./Master system/Air Rescue (Europe).sms
+./Master system/Alex Kidd - High-Tech World (USA).sms
+./Master system/Alex Kidd - The Lost Stars (USA).sms
+./Master system/Alex Kidd in Miracle World (USA) (Rev-A).sms
+./Master system/Alex Kidd in Shinobi World (USA).sms
+./Master system/Alien 3 (Europe).sms
+./Master system/Alien Storm (Europe).sms
+./Master system/Alien Syndrome (USA).sms
+./Master system/Altered Beast (USA).sms
+./Master system/Arcade Smash Hits (Europe).sms
+./Master system/Assault City (USA).sms
+./Master system/Asterix (Europe) (Rev-A).sms
+./Master system/Asterix and the Great Rescue (Europe).sms
+./Master system/Asterix and the Secret Mission (Europe).sms
+./Master system/Astro Warrior (USA).sms
+./Master system/Ayrton Senna's Super Monaco GP II (Europe).sms
+./Master system/Aztec Adventure (USA).sms
+./Master system/Baku Baku Animal (Brazil).sms
+./Master system/Bank Panic (Europe).sms
+./Master system/Batman Returns (Europe).sms
+./Master system/Battle OutRun (Europe).sms
+./Master system/Battletoads in Battlemaniacs (Brazil).sms
+./Master system/Black Belt (USA).sms
+./Master system/Blade Eagle 3-D (USA).sms
+./Master system/Bomber Raid (USA).sms
+./Master system/Bonanza Bros. (Europe).sms
+./Master system/Bubble Bobble (Europe).sms
+./Master system/Buggy Run (Europe).sms
+./Master system/California Games (USA).sms
+./Master system/California Games II (Europe).sms
+./Master system/Captain Silver (USA).sms
+./Master system/Castle of Illusion Starring Mickey Mouse (USA) (Rev-A).sms
+./Master system/Chase H.Q. (Europe).sms
+./Master system/Cheese Cat-Astrophe Starring Speedy Gonzales (Europe).sms
+./Master system/Choplifter (USA).sms
+./Master system/Chuck Rock (Europe).sms
+./Master system/Chuck Rock II - Son of Chuck (Europe).sms
+./Master system/Cloud Master (USA).sms
+./Master system/Columns (USA).sms
+./Master system/Cool Spot (Europe).sms
+./Master system/Cosmic Spacehead (Europe).sms
+./Master system/Cyber Shinobi, The (Europe).sms
+./Master system/Cyborg Hunter (USA).sms
+./Master system/Daffy Duck in Hollywood (Europe).sms
+./Master system/Danan - The Jungle Fighter (Europe).sms
+./Master system/Deep Duck Trouble Starring Donald Duck (Europe).sms
+./Master system/Desert Speedtrap Starring Road Runner and Wile E. Coyote (Europe).sms
+./Master system/Desert Strike - Return to the Gulf (Europe).sms
+./Master system/Disney's Aladdin (Europe).sms
+./Master system/Disney's Ariel the Little Mermaid (Brazil).sms
+./Master system/Disney's Bonkers Wax Up! (Brazil).sms
+./Master system/Disney's The Jungle Book (Europe).sms
+./Master system/Double Dragon (USA).sms
+./Master system/Double Hawk (Europe).sms
+./Master system/Dr. Robotnik's Mean Bean Machine (Europe).sms
+./Master system/Dragon Crystal (Europe).sms
+./Master system/Dynamite Duke (Europe).sms
+./Master system/Dynamite Dux (Europe).sms
+./Master system/Dynamite Headdy (Brazil).sms
+./Master system/ESWAT (USA) (Rev-A).sms
+./Master system/Earthworm Jim (Brazil).sms
+./Master system/Ecco - The Tides of Time (Brazil).sms
+./Master system/Ecco the Dolphin (Europe).sms
+./Master system/Enduro Racer (USA).sms
+./Master system/F1 (Europe).sms
+./Master system/Fantastic Dizzy (Europe).sms
+./Master system/Fantasy Zone (USA) (Rev-A).sms
+./Master system/Fantasy Zone - The Maze (USA).sms
+./Master system/Fantasy Zone II - The Tears of Opa-Opa (USA).sms
+./Master system/Fire & Forget II (Europe).sms
+./Master system/Flash, The (Europe).sms
+./Master system/Forgotten Worlds (Europe).sms
+./Master system/G-LOC - Air Battle (Europe).sms
+./Master system/GP Rider (Europe).sms
+./Master system/Gain Ground (Europe).sms
+./Master system/Galactic Protector (Japan).sms
+./Master system/Galaxy Force (USA).sms
+./Master system/Gangster Town (USA).sms
+./Master system/Gauntlet (Europe).sms
+./Master system/Ghost House (USA).sms
+./Master system/Ghostbusters (USA).sms
+./Master system/Ghouls 'n Ghosts (USA).sms
+./Master system/Global Defense (USA).sms
+./Master system/Golden Axe (USA).sms
+./Master system/Golden Axe Warrior (USA).sms
+./Master system/Golfamania (Europe).sms
+./Master system/Golvellius - Valley of Doom (USA).sms
+./Master system/Great Baseball (USA).sms
+./Master system/Great Soccer (USA).sms
+./Master system/Hang-On (USA) (BIOS 3.4).sms
+./Master system/Incredible Hulk, The (Europe).sms
+./Master system/Indiana Jones and the Last Crusade - The Action Game (Europe).sms
+./Master system/James ''Buster'' Douglas Knockout Boxing (USA).sms
+./Master system/James Bond 007 - The Duel (Europe).sms
+./Master system/James Pond II - Codename RoboCod (Europe).sms
+./Master system/Joe Montana Football (USA).sms
+./Master system/Jurassic Park (Europe).sms
+./Master system/Kenseiden (USA).sms
+./Master system/King's Quest - Quest for the Crown (USA).sms
+./Master system/Klax (Europe).sms
+./Master system/Kung Fu Kid (USA).sms
+./Master system/Land of Illusion Starring Mickey Mouse (Europe).sms
+./Master system/Legend of Illusion Starring Mickey Mouse (Brazil).sms
+./Master system/Lemmings (Europe).sms
+./Master system/Line of Fire (Europe).sms
+./Master system/Lion King, The (Europe).sms
+./Master system/Lord of the Sword (USA).sms
+./Master system/Lucky Dime Caper Starring Donald Duck, The (Europe).sms
+./Master system/Marble Madness (Europe).sms
+./Master system/Master of Darkness (Europe).sms
+./Master system/Masters of Combat (Europe).sms
+./Master system/Maze Hunter 3-D (USA).sms
+./Master system/Megumi Rescue (Japan).sms
+./Master system/Mercs (Europe).sms
+./Master system/Michael Jackson's Moonwalker (USA).sms
+./Master system/Mickey's Ultimate Challenge (Brazil).sms
+./Master system/Micro Machines (Europe).sms
+./Master system/Miracle Warriors - Seal of the Dark Lord (USA).sms
+./Master system/Missile Defense 3-D (USA).sms
+./Master system/Monopoly (USA).sms
+./Master system/Montezuma's Revenge Featuring Panama Joe (USA).sms
+./Master system/Mortal Kombat (Europe).sms
+./Master system/Mortal Kombat 3 (Brazil).sms
+./Master system/Mortal Kombat II (Europe).sms
+./Master system/Ms. Pac-Man (Europe).sms
+./Master system/My Hero (USA).sms
+./Master system/New Zealand Story, The (Europe).sms
+./Master system/Ninja Gaiden (Europe).sms
+./Master system/Ninja, The (USA).sms
+./Master system/Olympic Gold - Barcelona '92 (Europe).sms
+./Master system/Operation Wolf (Europe).sms
+./Master system/OutRun (USA).sms
+./Master system/OutRun 3-D (Europe).sms
+./Master system/OutRun Europa (Europe).sms
+./Master system/Pac-Mania (Europe).sms
+./Master system/Paperboy (USA).sms
+./Master system/Penguin Land (USA).sms
+./Master system/Phantasy Star (USA) (Rev-A).sms
+./Master system/Pit Pot (Japan).sms
+./Master system/Populous (Europe).sms
+./Master system/Poseidon Wars 3-D (USA).sms
+./Master system/Power Strike (USA).sms
+./Master system/Power Strike II (Europe).sms
+./Master system/Predator 2 (Europe).sms
+./Master system/Prince of Persia (Europe).sms
+./Master system/Pro Wrestling (USA).sms
+./Master system/Psychic World (Europe).sms
+./Master system/Psycho Fox (USA).sms
+./Master system/Putt & Putter (Europe).sms
+./Master system/Quartet (USA).sms
+./Master system/Quest for the Shaven Yak Starring Ren & Stimpy (Brazil).sms
+./Master system/R-Type (USA).sms
+./Master system/R.C. Grand Prix (USA).sms
+./Master system/Rainbow Islands (Europe).sms
+./Master system/Rambo - First Blood Part II (USA).sms
+./Master system/Rambo III (USA).sms
+./Master system/Rampage (USA).sms
+./Master system/Rampart (Europe).sms
+./Master system/Rastan (USA).sms
+./Master system/Renegade (Europe).sms
+./Master system/Rescue Mission (USA).sms
+./Master system/Road Rash (Europe).sms
+./Master system/RoboCop versus The Terminator (Europe).sms
+./Master system/Sagaia (Europe).sms
+./Master system/Satellite 7 (Japan).sms
+./Master system/Scramble Spirits (Europe).sms
+./Master system/Sega Chess (Europe).sms
+./Master system/Sensible Soccer - European Champions (Europe).sms
+./Master system/Shadow Dancer - The Secret of Shinobi (Europe).sms
+./Master system/Shadow of the Beast (Europe).sms
+./Master system/Shanghai (USA).sms
+./Master system/Shinobi (USA) (Rev-A).sms
+./Master system/Shooting Gallery (USA).sms
+./Master system/Slap Shot (USA).sms
+./Master system/Smurfs, The (Europe).sms
+./Master system/Snail Maze (USA).sms
+./Master system/Sonic Blast (Brazil).sms
+./Master system/Sonic Chaos (Europe).sms
+./Master system/Sonic Spinball (Europe).sms
+./Master system/Sonic the Hedgehog (USA).sms
+./Master system/Sonic the Hedgehog 2 (Europe) (Rev-A).sms
+./Master system/Space Gun (Europe).sms
+./Master system/Space Harrier (USA).sms
+./Master system/Space Harrier 3-D (USA).sms
+./Master system/Special Criminal Investigation (Europe).sms
+./Master system/SpellCaster (USA).sms
+./Master system/Spider-Man vs. The Kingpin (USA).sms
+./Master system/Spy vs. Spy (USA).sms
+./Master system/Star Wars (Europe).sms
+./Master system/Street Fighter II' (Brazil).sms
+./Master system/Streets of Rage (Europe).sms
+./Master system/Streets of Rage 2 (Europe).sms
+./Master system/Strider (USA).sms
+./Master system/Strider II (Europe).sms
+./Master system/Submarine Attack (Europe).sms
+./Master system/Super Monaco GP (USA).sms
+./Master system/Super Off Road (Europe).sms
+./Master system/Super Space Invaders (Europe).sms
+./Master system/Super Tennis (USA).sms
+./Master system/T2 - The Arcade Game (Europe).sms
+./Master system/Taz-Mania (Europe).sms
+./Master system/Tecmo World Cup '93 (Europe).sms
+./Master system/Teddy Boy (USA).sms
+./Master system/Terminator 2 - Judgment Day (Europe).sms
+./Master system/Terminator, The (Europe).sms
+./Master system/Thunder Blade (USA).sms
+./Master system/Time Soldiers (USA).sms
+./Master system/Tom and Jerry - The Movie (Europe).sms
+./Master system/TransBot (USA).sms
+./Master system/Ultima IV - Quest of the Avatar (Europe).sms
+./Master system/Ultimate Soccer (Europe).sms
+./Master system/Vigilante (USA).sms
+./Master system/Virtua Fighter Animation (Brazil).sms
+./Master system/WWF WrestleMania Steel Cage Challenge (Europe).sms
+./Master system/Wanted (USA).sms
+./Master system/Where in the World Is Carmen Sandiego (USA).sms
+./Master system/Wimbledon (Europe).sms
+./Master system/Wimbledon II (Europe).sms
+./Master system/Winter Olympic Games - Lillehammer '94 (Europe).sms
+./Master system/Wonder Boy (USA) (Rev-A).sms
+./Master system/Wonder Boy III - The Dragon's Trap (USA).sms
+./Master system/Wonder Boy in Monster Land (USA).sms
+./Master system/Wonder Boy in Monster World (Europe).sms
+./Master system/Woody Pop (Japan).sms
+./Master system/World Class Leaderboard Golf (Europe).sms
+./Master system/World Cup USA 94 (Europe).sms
+./Master system/World Grand Prix (USA).sms
+./Master system/X-Men - Mojo World (Brazil).sms
+./Master system/Xenon 2 - Megablast (Europe) (Rev-A).sms
+./Master system/Ys - The Vanished Omens (USA).sms
+./Master system/Zaxxon 3-D (USA).sms
+./Master system/Zillion (USA) (Rev-A).sms
+./Master system/Zillion II - The Tri Formation (USA).sms
+./Master system/Zool - Ninja of the ''Nth'' Dimension (Europe).sms
+./SMS_SG1000/After Burner (World).sms
+./SMS_SG1000/Aladdin (Europe).sms
+./SMS_SG1000/Alex Kidd - High-Tech World (USA, Europe).sms
+./SMS_SG1000/Alex Kidd - The Lost Stars (World).sms
+./SMS_SG1000/Alex Kidd in Miracle World (B) (V1.1) [p1][!].sms
+./SMS_SG1000/Alex Kidd in Miracle World (B) (V1.1) [p1][b1].sms
+./SMS_SG1000/Alex Kidd in Miracle World (B) (V1.1) [p1][o1].sms
+./SMS_SG1000/Alex Kidd in Miracle World (J) [!].sms
+./SMS_SG1000/Alex Kidd in Miracle World (J) [T+Fre_Terminus].sms
+./SMS_SG1000/Alex Kidd in Miracle World (U) (V1.0) [T+Ita1.0_Anthrax].sms
+./SMS_SG1000/Alex Kidd in Miracle World (U) (V1.0).sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [!].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T+Bra_CBT].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T+Fre].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T+Fre][a1].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T+Ita1.0].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T-Bra_CBT].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [T-Bra_CBT][a1].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [o1].sms
+./SMS_SG1000/Alex Kidd in Miracle World (UE) (V1.1) [o2].sms
+./SMS_SG1000/Alex Kidd in Shinobi World (USA, Europe).sms
+./SMS_SG1000/Altered Beast (USA, Europe).sms
+./SMS_SG1000/Ashura (J) [!].sms
+./SMS_SG1000/Asterix (Europe) (En,Fr).sms
+./SMS_SG1000/Ayrton Senna's Super Monaco GP II (E) [!].sms
+./SMS_SG1000/Back to the Future Part III (Europe).sms
+./SMS_SG1000/Bonanza Bros. (Europe).sms
+./SMS_SG1000/Bubble Bobble (Europe).sms
+./SMS_SG1000/California Games (USA, Europe).sms
+./SMS_SG1000/Castle of Illusion Starring Mickey Mouse (USA).sms
+./SMS_SG1000/Choplifter (J) (Prototype).sms
+./SMS_SG1000/Choplifter (SG-1000) (Prototype).sg
+./SMS_SG1000/Choplifter (SG-1000) [!].sg
+./SMS_SG1000/Choplifter (UE) [!].sms
+./SMS_SG1000/Choplifter (UE) [b1].sms
+./SMS_SG1000/Choplifter (UE) [b1][o1].sms
+./SMS_SG1000/Choplifter (UE) [b2].sms
+./SMS_SG1000/Choplifter (UE) [b3].sms
+./SMS_SG1000/Choplifter (UE) [o1].sms
+./SMS_SG1000/Double Dragon (World).sms
+./SMS_SG1000/Fantasy Zone (Japan).sms
+./SMS_SG1000/Ferias Frustradas do Picapau (B).sms
+./SMS_SG1000/Ghostbusters (USA, Europe).sms
+./SMS_SG1000/Ghouls'n Ghosts (USA, Europe).sms
+./SMS_SG1000/Golden Axe (USA, Europe).sms
+./SMS_SG1000/Golden Axe Warrior (USA, Europe).sms
+./SMS_SG1000/Jurassic Park (E) [!].sms
+./SMS_SG1000/Land of Illusion Starring Mickey Mouse (U) [!].sms
+./SMS_SG1000/Lion King, The (E) [!].sms
+./SMS_SG1000/Lucky Dime Caper, The - Starring Donald Duck (E) [!].sms
+./SMS_SG1000/Lucky Dime Caper, The - Starring Donald Duck (E) [T+Bra].sms
+./SMS_SG1000/Lucky Dime Caper, The - Starring Donald Duck (E) [T+Fre_GIX].sms
+./SMS_SG1000/Lucky Dime Caper, The - Starring Donald Duck (Prototype).sms
+./SMS_SG1000/Michael Jackson's Moonwalker (UE) [!].sms
+./SMS_SG1000/Michael Jackson's Moonwalker (UE) [b1].sms
+./SMS_SG1000/Mortal Kombat (Europe).sms
+./SMS_SG1000/Mortal Kombat 2 (E) [!].sms
+./SMS_SG1000/Mortal Kombat 2 (E) [b1].sms
+./SMS_SG1000/Mortal Kombat 3 (Brazil).sms
+./SMS_SG1000/Ninja Gaiden (Europe).sms
+./SMS_SG1000/OutRun (UE) [!].sms
+./SMS_SG1000/OutRun (UE) [b1].sms
+./SMS_SG1000/OutRun (UE) [b2].sms
+./SMS_SG1000/OutRun (UE) [o1].sms
+./SMS_SG1000/Phantasy Star (USA, Europe) (v1.3).sms
+./SMS_SG1000/Psycho Fox (USA, Europe).sms
+./SMS_SG1000/R-Type (UE) [!].sms
+./SMS_SG1000/R-Type (UE) [T+Bra_Emuboarding].sms
+./SMS_SG1000/R-Type (UE) [T+Bra_Emuboarding][a1].sms
+./SMS_SG1000/Rainbow Islands - The Story of Bubble Bobble 2 (Brazil).sms
+./SMS_SG1000/Rambo - First Blood Part 2 (U) [!].sms
+./SMS_SG1000/Rambo III (UE) [!].sms
+./SMS_SG1000/Rastan (UE) [!].sms
+./SMS_SG1000/Rastan (UE) [b1].sms
+./SMS_SG1000/Rocky (World).sms
+./SMS_SG1000/Secret Commando (E) [!].sms
+./SMS_SG1000/Secret Commando (E) [o1].sms
+./SMS_SG1000/Sega Galaga (SG-1000) [!].sg
+./SMS_SG1000/Shinobi (USA, Europe).sms
+./SMS_SG1000/Simpsons, The - Bart vs. the World (E) [!].sms
+./SMS_SG1000/Sonic 2 Rebirth (Sonic 2 Hack).sms
+./SMS_SG1000/Sonic Blast (Brazil).sms
+./SMS_SG1000/Sonic Chaos (E) [!].sms
+./SMS_SG1000/Sonic Chaos (E) [b1].sms
+./SMS_SG1000/Sonic Spinball (E) [!].sms
+./SMS_SG1000/Sonic The Hedgehog (UE) [!].sms
+./SMS_SG1000/Sonic The Hedgehog (UE) [T+Fre_Terminus].sms
+./SMS_SG1000/Sonic The Hedgehog 2 (U) [!].gg
+./SMS_SG1000/Sonic The Hedgehog 2 (UE) (V1.0) [!].sms
+./SMS_SG1000/Sonic The Hedgehog 2 (UE) (V2.2).sms
+./SMS_SG1000/Street Fighter II (Brazil).sms
+./SMS_SG1000/Streets of Rage (Europe).sms
+./SMS_SG1000/Streets of Rage II (Europe).sms
+./SMS_SG1000/Terminator 2 - The Arcade Game.sms
+./SMS_SG1000/Tom and Jerry (Prototype) [!].sms
+./SMS_SG1000/Tom and Jerry - The Movie (E) [b1].sms
+./SMS_SG1000/Tom and Jerry - The Movie (E) [b2].sms
+./SMS_SG1000/Tom and Jerry - The Movie (E).sms
+./SMS_SG1000/Wonder Boy (USA, Europe).sms
+./SMS_SG1000/Wonder Boy III - The Dragon's Trap (USA, Europe).sms
+./SMS_SG1000/Wonder Boy in Monster Land (USA, Europe).sms
+./sysdump.gg
