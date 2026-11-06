@@ -79,7 +79,7 @@ Changes to the OS that make room:
 | `sysdump/` | a small program to back up the cart's system flash |
 
 **Not included**: Krikzz's OS, any firmware built from it, and game art.
-You need your own copy of `os-v9.mso` and your own pictures.
+You need your own copy of `os-v9.mso` (https://krikzz.com/pub/support/master-everdrive/v1/os-bin/)
 
 ## What you need
 
