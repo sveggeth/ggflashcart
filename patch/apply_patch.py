@@ -10,7 +10,7 @@ you might flash by mistake.
 import sys, os, hashlib
 
 OS_V9_MD5 = '1d6a22a2971785fbacc99078d0d540a9'
-WHEEL_MD5 = '262e64afffdb2baa17d94d84014f38dc'
+WHEEL_MD5 = '5801b10a776ee362603ddf5d00085ecc'
 
 
 def apply_ips(data, ips):
