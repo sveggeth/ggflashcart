@@ -4,7 +4,8 @@
 
 Usage:
   python3 make_thumbs.py ART_DIR ROM_DIR [ROM_DIR ...] -o OUT_DIR [--preview preview.png]
-                         [--folder "NAME=picture.png" ...]
+                         [--folder "NAME=picture.png" ...] [--splash picture.png]
+                         [--sound sound.wav]
 
   ART_DIR   PNG/JPG images named like the ROMs, e.g.
             "Sonic Chaos (USA, Europe).png" for "Sonic Chaos (USA, Europe).gg".
@@ -14,6 +15,9 @@ Usage:
   OUT_DIR   becomes /THUMBS on the SD card; the script writes thumbs.pak there
   --folder  a picture for a folder (or "Favourites"), e.g.
             --folder "GG=gamegear.png" --folder "Master system=sms.png"
+  --splash  the picture shown at power-on, before the wheel (build 14 or later)
+  --sound   a sound played at power-on with that picture (build 16 or later):
+            WAV, or anything ffmpeg can read; up to 2 seconds are used
 
 Each picture is drawn as large as the wheel allows: up to 144x56 pixels, and
 at most 72 different 8x8 blocks (empty and repeated blocks are free). Wide
@@ -25,7 +29,7 @@ when you add games. Black, white and yellow are fixed (text and highlights).
 
 Needs Python 3 with Pillow and numpy:  pip3 install pillow numpy
 """
-import os, sys, argparse
+import os, sys, argparse, subprocess, wave
 import numpy as np
 from PIL import Image
 
@@ -244,6 +248,54 @@ def record(idx, psel, box):
     return bytes(rec)
 
 
+SND_RATE = 7954                     # the player: 450 CPU cycles a sample
+SND_MAX = 16 * 512 - 16             # 8 KB of save RAM, 2 samples a byte
+
+
+def load_sound(path):
+    """-> mono float samples at SND_RATE, -1..1"""
+    try:
+        raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', str(SND_RATE),
+                              '-f', 's16le', '-'], check=True, capture_output=True).stdout
+        return np.frombuffer(raw, '<i2').astype(np.float64) / 32768
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    with wave.open(path) as w:                     # no ffmpeg: plain PCM WAV only
+        n, ch, sw, rate = w.getnframes(), w.getnchannels(), w.getsampwidth(), w.getframerate()
+        data = w.readframes(n)
+    if sw != 2:
+        sys.exit('--sound: please give a 16-bit WAV (or install ffmpeg)')
+    x = np.frombuffer(data, '<i2').astype(np.float64).reshape(-1, ch).mean(1) / 32768
+    t = np.arange(0, len(x) / rate, 1 / SND_RATE)
+    return np.interp(t, np.arange(len(x)) / rate, x)
+
+
+def sound_record(path):
+    """-> "SND1" record: 4-bit PSG attenuation values, 2 per byte, high nibble first"""
+    x = load_sound(path)
+    x = x[:SND_MAX * 2]
+    if len(x) % 2:
+        x = np.append(x, 0)
+    peak = np.abs(x).max() or 1
+    a = (x / peak + 1) / 2                         # the PSG can only add, so centre on 1/2
+    ramp = min(len(a) // 2, int(SND_RATE * 0.02))  # 20 ms in and out: no clicks
+    env = np.ones(len(a))
+    env[:ramp] = np.linspace(0, 1, ramp)
+    env[len(a) - ramp:] = np.linspace(1, 0, ramp)
+    a *= env
+    levels = np.array([10 ** (-v / 10) for v in range(15)] + [0.0])   # 2 dB a step, 15 = off
+    v = np.abs(a[:, None] - levels[None]).argmin(1).astype(np.uint8)
+    data = bytes((v[0::2] << 4) | v[1::2])
+    rec = bytearray(16)
+    rec[0:4] = b'SND1'
+    rec[4:6] = len(data).to_bytes(2, 'little')
+    rec[6:8] = SND_RATE.to_bytes(2, 'little')
+    rec += data
+    rec += bytes(-len(rec) % 512)
+    print('sound: %.2f s' % (len(x) / SND_RATE))
+    return bytes(rec)
+
+
 def cram(p0, p1):
     out = bytearray()
     for pal in (p0, p1):
@@ -266,6 +318,10 @@ def write_pack(path, entries, pal):
             where[id(data)] = len(datas)
             datas.append(data)
         items.append((h, where[id(data)]))
+    starts, n = [], 0                       # records are whole sectors (thumbnails: 5)
+    for data in datas:
+        starts.append(n)
+        n += len(data) // 512
     k = 1
     while True:
         buckets = [[] for _ in range(k)]
@@ -289,7 +345,7 @@ def write_pack(path, entries, pal):
         for j, i in enumerate(b):
             o = 8 + j * 8
             sec[o:o + 4] = items[i][0].to_bytes(4, 'little')
-            sec[o + 4:o + 6] = (first + 5 * items[i][1]).to_bytes(2, 'little')
+            sec[o + 4:o + 6] = (first + starts[items[i][1]]).to_bytes(2, 'little')
         out += sec
     for data in datas:
         out += data
@@ -305,7 +361,11 @@ def main():
     ap.add_argument('-o', '--out', required=True)
     ap.add_argument('--preview')
     ap.add_argument('--folder', action='append', default=[], metavar='NAME=PICTURE')
+    ap.add_argument('--splash', metavar='PICTURE')
+    ap.add_argument('--sound', metavar='SOUND')
     a = ap.parse_args()
+    if a.splash:
+        a.folder.append('Splash=' + a.splash)       # filed under "Splash" 
 
     arts = {}
     for f in os.listdir(a.art):
@@ -359,7 +419,10 @@ def main():
                     out[y, x] = (p1 if psel[y // 8, x // 8] else p0)[idx[y, x]]
             previews[p] = Image.fromarray((out * 17).astype(np.uint8))
     os.makedirs(a.out, exist_ok=True)
-    n, k = write_pack(os.path.join(a.out, 'thumbs.pak'), [(fn, recs[p]) for fn, p in found], cram(p0, p1))
+    entries = [(fn, recs[p]) for fn, p in found]
+    if a.sound:
+        entries.append(('Sound', sound_record(a.sound)))   # filed under "Sound", after the pictures
+    n, k = write_pack(os.path.join(a.out, 'thumbs.pak'), entries, cram(p0, p1))
     print('wrote %s: %d thumbnails, %d index sectors, %d KB' % (os.path.join(a.out, 'thumbs.pak'), n, k,
                                                              os.path.getsize(os.path.join(a.out, 'thumbs.pak')) // 1024))
     if a.preview and previews:
