@@ -46,6 +46,8 @@ fav_count:                      ; -> A = favourites in use (the list is kept pac
 ; ---- wheel entries: the folder's, the extra one, or the favourites' --------
 fetch_entry:                    ; entry G_IDX -> name cache, dir flag, hash; A = err
         ld a,(W_SRC)
+        cp 2
+        jr z,.spl               ; the start-up picture
         or a
         jr nz,.fav
         ld a,(W_VFAV)
@@ -59,14 +61,26 @@ fetch_entry:                    ; entry G_IDX -> name cache, dir flag, hash; A =
         ld a,1                  ; the extra entry: a "folder" called Favourites
         ld hl,G_ISDIR
         call put_k
+        ld hl,s_favs            ; its art (if any) is filed under "Favourites"
+.virt:  push hl
         ld a,(G_K)
         call name_ptr
         ex de,hl
-        ld hl,s_favs
+        pop hl
+        push hl
         ld bc,11
+        ldir
+        pop hl
+        call hash_name
+        call hash_ptr
+        ex de,hl
+        ld hl,G_H
+        ld bc,4
         ldir
         xor a
         ret
+.spl:   ld hl,s_splash          ; filed under "Splash" in thumbs.pak
+        jr .virt
 .fav:   call sram_on            ; directory position from the favourites list
         ld hl,(G_IDX)
         add hl,hl
@@ -196,3 +210,42 @@ wheel_clean:                    ; sprites off, scroll 0, tiles 1-16 blank again
         out ($BE),a
         djnz .clr
         jp out_vs
+
+; ---- start-up picture (once per power-on, as soon as the card can be read) --
+W_SPL       EQU $DB8A   ; 1 until the start-up picture has been shown
+
+splash:
+        xor a
+        ld (W_SPL),a
+        ld (W_FAST),a           ; (not set yet at power-on)
+        ld a,(G_HASPACK)
+        or a
+        ret z
+        call display_off
+        call CLEAR_NT
+        ld hl,NT_SHADOW
+        ld bc,$0700
+        call row_flush
+        ld a,156                ; slot 0 centred: screen y 44-99
+        call out_vs
+        ld a,2
+        ld (W_SRC),a
+        xor a
+        ld (G_K),a
+        ld h,a
+        ld l,a
+        ld (G_IDX),hl
+        call load_slot
+        xor a
+        ld (W_SRC),a
+        ld hl,G_HAVE            ; no picture in the pack: carry straight on
+        call get_k
+        or a
+        ret z
+        call display_on
+        ld b,90                 ; 1.5 seconds
+.w:     push bc
+        call VBLANK
+        pop bc
+        djnz .w
+        ret

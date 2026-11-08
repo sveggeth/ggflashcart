@@ -138,11 +138,7 @@ load_slot:                      ; entry G_IDX into slot G_K
         call get_k
         ld hl,W_DIRS
         call put_k
-        ld hl,G_ISDIR
-        call get_k
-        or a
-        jr nz,.txt
-        ld a,(W_FAST)
+        ld a,(W_FAST)           ; folders get art too, if the pack has some
         or a
         jr nz,.txt              ; scrolling fast: the name only
         call load_header

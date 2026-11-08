@@ -4,7 +4,9 @@
 ;   sjasmplus gridpatch.asm        (needs os-v9.mso next to this file)
 ;
 ; Patch points:
-;   $0200  version byte $09 -> $15 (Device Info shows 21; build 12)
+;   $0200  version byte $09 -> $18 (Device Info shows 24; build 15)
+;   messages wider than the screen (20 characters) shortened in place (build 15)
+;   $3F2B  os_init: "OS init..." -> no text (a start-up picture follows from thumbs.pak)
 ;   $4301  main menu: no "About" item; $4483-$465A (the About screen) holds wheel code
 ;   $07A8  browser_main: "call fn_180E" (load folder) -> "call load_dir_hook"
 ;   $1A5C  folder loader: "ld a,(ix-10) / and 10 / jr z" -> "call dir_filter / jr z" (wheel hides system entries)
@@ -121,7 +123,7 @@ W_PREC      EQU $DC00   ; the pack's file record, kept ($E5 bytes; stack stays a
 
 ; ============================================================================
         ORG $0200
-        DB $15
+        DB $18
 
         ORG $07DC
         call grid_hook
@@ -174,6 +176,7 @@ boot_hook:                      ; RAM isn't cleared at power-on
         ld (W_FILT),a
         inc a
         ld (W_HID),a            ; no list flash before the wheel
+        ld (W_SPL),a            ; start-up picture on the way into the wheel
         call display_off
         ld a,WHEEL_MAGIC
         ld (G_MAGIC),a
@@ -737,11 +740,7 @@ load_thumbs:
         call get_k
         or a
         jr z,.bs
-        ld hl,G_ISDIR
-        call get_k
-        or a
-        jr nz,.bs
-        call hash_ptr           ; sector = 1 + (hash & (K-1))
+        call hash_ptr           ; sector = 1 + (hash & (K-1)); folders too (build 13)
         ld e,(hl)
         inc hl
         ld d,(hl)
@@ -1076,6 +1075,23 @@ grid_end:
         DISPLAY "grid code: ", /D, grid_end - $70EC, " bytes, free left: ", /D, $7C00 - grid_end
 
         INCLUDE "features_a.asm"
+
+; ---- messages that were wider than the 20-character screen (same place, shorter)
+        ORG $3FD8
+        DB "Settings reset",0               ; was "Settings reset to default"
+        ORG $4234
+        DB "Unzip the ROM first",0          ; was "ROM file must be unzipped"
+        ORG $49E6
+        DB "DO NOT SWITCH OFF!",0           ; game loading; was "!DO NOT TURN OFF THE SYSTEM!"
+        ORG $4A03
+        DB "-------------------",0          ; 19, like the OS's other loading screen
+        ORG $5081
+        DB "DO NOT SWITCH OFF!",0           ; OS update (text only, the code is untouched)
+        ORG $5E21
+        DB "FAT16 not supported",0          ; was "FAT16 is not supported"
+
+        ORG $3F2B               ; os_init's message: none
+        DW s_none
 
         ORG $07A8               ; browser_main: its folder load goes through the wheel's filter
         call load_dir_hook

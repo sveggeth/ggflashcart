@@ -208,3 +208,6 @@ dir_filter:
 
 rom_exts:   DB "GG ","SMS","SG ","SC ","BIN",0
 sys_dirs:   DB "THUMBS     ","SAVE       ","SAVES      ","EDGG       ","SYSTEM~1   ",0
+
+s_splash:   DB "Splash",0
+s_none:     DB 0

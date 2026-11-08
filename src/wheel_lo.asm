@@ -24,6 +24,9 @@ wheel_enter:                    ; Wheel View from the quick menu
         ret
 wheel_main:
         call view_setup
+        ld a,(W_SPL)            ; just switched on: the start-up picture first
+        or a
+        call nz,splash
         xor a
         ld (W_SRC),a
         call root_fav           ; the root gets a Favourites entry
