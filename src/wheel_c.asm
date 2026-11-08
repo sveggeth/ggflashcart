@@ -58,8 +58,6 @@ thumb_nametable:                ; map at buf+256 -> slot rows (window columns 0-
         ld hl,(G_VRAM)          ; the box follows the map
         jr box_set
 
-box_default:                    ; no picture: the frame goes round the 64x56 text box
-        ld hl,def_box
 box_set:                        ; HL = 4 bytes -> W_BOX[G_K]
         ld a,(G_K)
         add a,a
@@ -114,10 +112,11 @@ frame_set:                      ; the 4 corner sprites round the centre picture
         ld bc,8
         jp vram_copy
 
-def_box:    DB 48,0,112,56
 
 wheel_fill:                     ; centre, below + the banner (it sits on that slot),
-        xor a                   ; above, then the hidden one ahead
+        ld a,1                  ; above, then the hidden one ahead; Up/Down
+        ld (W_INT),a            ; stops it (W_ABORT)
+        xor a
         call ensure_rel
         ld a,1
         call ensure_rel
@@ -126,10 +125,20 @@ wheel_fill:                     ; centre, below + the banner (it sits on that sl
         call ensure_rel
         ld a,(W_DIR)
         add a,a
-        jp ensure_rel
+        call ensure_rel
+        xor a
+        ld (W_INT),a
+        ret
 
-held:                           ; NZ if the direction of W_DIR is still held
-        ld a,(W_DIR)
+held:                           ; NZ to carry on: steps of a Left/Right skip left,
+        ld a,(W_SKIP)           ; or the direction of W_DIR still held
+        or a
+        jr z,.h
+        dec a
+        ld (W_SKIP),a
+        or 1
+        ret
+.h:     ld a,(W_DIR)
         ld b,a
         in a,($DC)
         cpl
@@ -211,3 +220,4 @@ sys_dirs:   DB "THUMBS     ","SAVE       ","SAVES      ","EDGG       ","SYSTEM~1
 
 s_splash:   DB "Splash",0
 s_none:     DB 0
+

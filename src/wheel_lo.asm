@@ -24,6 +24,10 @@ wheel_enter:                    ; Wheel View from the quick menu
         ret
 wheel_main:
         call view_setup
+        xor a
+        ld (W_INT),a
+        ld (W_ABORT),a
+        ld (W_SKIP),a
         ld a,(W_SPL)            ; just switched on: the start-up picture first
         or a
         call nz,splash
@@ -43,8 +47,7 @@ wheel_start:
         djnz .ff
         ld a,(G_SEL)
         and 3
-        ld (W_S),a
-        ld a,(W_S)              ; scroll for the centre slot: 56*s - 56 (mod 224)
+        ld (W_S),a              ; scroll for the centre slot: 56*s - 56 (mod 224)
         ld e,a
         ld d,0
         ld hl,vs_tab
@@ -63,14 +66,10 @@ wheel_start:
         out ($BE),a
         out ($BE),a
         djnz .t
-        ld hl,sat_y
-        ld de,$3F00
-        ld bc,5
-        call vram_copy
-        ld hl,sat_xt
-        ld de,$3F80
-        ld bc,8
-        call vram_copy
+        ld de,$3F04             ; frame: 4 sprites (frame_set places them as the
+        call vaddr              ; first game settles), the list ends after them
+        ld a,$D0
+        out ($BE),a
         call display_on         ; the frame shows at once, then the games come in
         xor a
         ld (W_HID),a
@@ -78,6 +77,7 @@ wheel_start:
         inc a
         ld (W_DIR),a
         call wheel_fill
+        jr .chk
 .loop:  call grid_wait
         ld b,a
         bit 7,b
@@ -91,14 +91,39 @@ wheel_start:
         ld a,1
         bit 1,b
         jr nz,.mv
+        bit 3,b
+        jr nz,.sk               ; Right: 3 forwards
         ld a,-1
         bit 0,b
-        jr z,.loop
+        jr nz,.mv
+        bit 2,b
+        jr z,.loop              ; Left: 3 back
+.sk:    ld hl,W_SKIP            ; quick steps: this one and 2 more
+        ld (hl),2
+        jr .go
 .mv:    call move
-        call held
+.chk:   call pad_new            ; a fresh press (not the one still held): count it
+        call nz,abort_dir
+        ld a,(W_ABORT)          ; pressed again during the step or the filling in:
+        or a                    ; one more step for that press
+        jr z,.nh
+        ld b,a
+        xor a
+        ld (W_ABORT),a
+        ld a,b
+        jr .mv
+.nh:    call held
         jr z,.loop              ; a tap: one step
-        ld a,$80                ; still held after a whole step: speed up,
-        ld (W_FAST),a           ; names only, until it's let go
+        ld b,12                 ; still held after a whole step and 0.2 s more:
+        call wait_frames
+        call held
+        jr z,.loop
+        ld a,(W_DIR)            ; speed up,
+.go:    ld (W_DIR),a            ; names only, until it's let go
+        xor a
+        ld (W_ABORT),a
+        ld a,$80
+        ld (W_FAST),a
 .fast:  ld a,(W_DIR)
         call move
         call held
@@ -106,7 +131,7 @@ wheel_start:
         xor a
         ld (W_FAST),a
         call wheel_fill         ; let go: the art for what's on screen
-        jr .loop
+        jr .chk
 .start: ld a,1                  ; Start: back to the list with the quick menu
         ld (W_QM),a
         xor a
@@ -129,9 +154,6 @@ vaddr:                          ; DE = VRAM address to write
         out ($BF),a
         ret
 
-vs_tab:     DB 168,0,56,112          ; centre art at screen y 32-87, banner y 120-143
-sat_y:      DB 55,55,103,103,$D0
-sat_xt:     DB 96,1, 152,2, 96,3, 152,4
 corner_pat: DB $FF,$FF,$C0,$C0,$C0,$C0,$C0,$C0
             DB $FF,$FF,$03,$03,$03,$03,$03,$03
             DB $C0,$C0,$C0,$C0,$C0,$C0,$FF,$FF

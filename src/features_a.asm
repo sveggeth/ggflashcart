@@ -395,210 +395,173 @@ show_list:                      ; HL = list, B = slots, DE = title
         jr .out
 .gone:  ld de,s_gone
         call show_msg
-.out:   ld hl,$00E5
-        call free_hl
-        ld hl,512
+.out:   ld hl,$00E5+512         ; both buffers (the OS's pool just counts)
         jp free_hl
 
-; ---- jump to the next entry starting with a letter --------------------------
-letter_jump:
-        ld hl,(ENT_COUNT)
-        ld a,h
-        or l
-        ret z
-        ld a,1
-        ld (G_STPREV),a
-        ld a,(G_LETTER)
-        cp 27
-        jr c,.draw
+; ---- Start in the file list --------------------------------------------------
+quick_menu:
         xor a
-        ld (G_LETTER),a
-.draw:  call CLEAR_NT
-        xor a
-        ld (G_ATTR),a
-        ld de,s_q_letter
-        ld bc,$0301
-        ld a,20
-        call print
-        ld b,0
-.sym:   push bc
-        ld a,(G_LETTER)
-        cp b
-        ld a,0
-        jr nz,.at
-        ld a,$08
-.at:    ld (G_ATTR),a
-        ld a,b
-        cp 26
-        ld a,'#'
-        jr z,.ch
-        ld a,b
-        add a,'A'
-.ch:    ld (G_STR),a
-        xor a
-        ld (G_STR+1),a
-        ld a,b                  ; 9 per row: column 1 + 2x, row 5 + 2y
-        ld c,0
-.dv:    cp 9
-        jr c,.dd
-        sub 9
-        inc c
-        jr .dv
-.dd:    add a,a
-        inc a
-        ld b,a
-        ld a,c
-        add a,a
-        add a,5
-        ld c,a
-        ld de,G_STR
-        ld a,1
-        call print
-        pop bc
-        inc b
-        ld a,b
-        cp 27
-        jr nz,.sym
-        call FLUSH_NT
-        call grid_wait
-        bit 7,a
-        ret nz
-        bit 5,a
-        ret nz
-        bit 4,a
-        jr nz,.go
-        ld b,a
-        ld hl,G_LETTER
-        bit 2,b
-        jr z,.nl
-        ld a,(hl)
-        or a
-        jr z,.nl
-        dec (hl)
-.nl:    bit 3,b
-        jr z,.nr
-        ld a,(hl)
-        cp 26
-        jr nc,.nr
-        inc (hl)
-.nr:    bit 0,b
-        jr z,.nu
-        ld a,(hl)
-        cp 9
-        jr c,.nu
-        sub 9
-        ld (hl),a
-.nu:    bit 1,b
-        jp z,.draw
-        ld a,(hl)
-        add a,9
-        cp 27
-        jp nc,.draw
-        ld (hl),a
-        jp .draw
-.go:    ld a,(G_LETTER)         ; 0 = '#' (anything that doesn't start with a letter)
-        cp 26
-        ld a,0
-        jr z,.hash
-        ld a,(G_LETTER)
-        add a,'A'
-.hash:  ld (G_CH),a
-        xor a
-        ld (G_ATTR),a
-        ld de,s_search
-        ld bc,$040D
-        ld a,20
-        call print
-        call FLUSH_NT
-        ld hl,$00E5
-        call alloc_hl
-        ld (G_LREC),hl
-        ld l,(ix+B_SEL_LO)
-        ld h,(ix+B_SEL_HI)
-        ld (G_I),hl
-        ld hl,(ENT_COUNT)
-        ld (G_N),hl
-.next:  ld hl,(G_N)
-        ld a,h
-        or l
-        jr z,.done
-        dec hl
-        ld (G_N),hl
-        ld hl,(G_I)             ; idx = (idx + 1) mod count, starting after the selection
-        inc hl
-        ld de,(ENT_COUNT)
-        or a
-        sbc hl,de
-        add hl,de
-        jr c,.w
+        ld (G_SATTR),a
         ld hl,0
-.w:     ld (G_I),hl
-        add hl,hl
-        add hl,hl
-        ld de,(ENT_TABLE)
-        add hl,de
-        ld e,(hl)
-        inc hl
-        ld d,(hl)
-        inc hl
-        ld c,(hl)
-        inc hl
-        ld b,(hl)
-        ld hl,(G_LREC)
         push hl
-        push bc
-        push de
-        call READ_ENTRY
-        pop af
+        ld hl,qm_items
+        push hl
+        call MENU
         pop af
         pop af
         ld a,l
         or a
-        jr nz,.next
-        ld hl,(G_LREC)
-        ld a,(hl)
-        cp 'a'
-        jr c,.up
-        cp 'z'+1
-        jr nc,.up
-        sub 32
-.up:    ld b,a
-        ld a,(G_CH)
+        jp z,wheel_enter
+        dec a
+        jr nz,.nl
+        ld a,LIST_MAGIC         ; List View: reload the folder with nothing hidden
+        ld (G_MAGIC),a
+        ld (ix+B_REDRAW),2
+        xor a
+        ld (KEYS),a
+        ret
+.nl:    dec a
+        jr nz,.n1
+        call need_ovl           ; Jump To Letter lives in the overlay now
+        ld a,6
+        call nz,ovl_call
+        jr .back
+.n1:    dec a
+        jr nz,.n2
+        ld hl,REC_BASE
+        ld b,REC_MAX
+        ld de,s_recent
+        call show_list
+        jr .back
+.n2:    dec a
+        jr nz,.n3
+        ld hl,FAV_BASE
+        ld b,FAV_MAX
+        ld de,s_favs
+        call show_list
+        jr .back
+.n3:    dec a
+        jp z,pick_start
+.back:  ld (ix+B_REDRAW),1      ; the browser redraws the list
+        xor a
+        ld (KEYS),a
+        ret
+
+; ---- start-up sound player (see wheel_s.asm) ----
+sound_play:                     ; save RAM -> PSG channel 0 volume, 450 cycles a sample
+        ld a,(W_SND)
         or a
-        jr z,.other
-        cp b
-        jr nz,.next
-        jr .found
-.other: ld a,b
-        cp 'A'
-        jr c,.found
-        cp 'Z'+1
-        jr nc,.found
-        jr .next
-.found: ld hl,(G_I)
-        ld (ix+B_SEL_LO),l
-        ld (ix+B_SEL_HI),h
-.done:  ld hl,$00E5
-        jp free_hl
+        ret z
+        ld a,$FF
+        out ($06),a             ; Game Gear stereo: everything on both sides
+        ld hl,psg_init
+        ld bc,$067F
+        otir
+        call sram_on
+        ld hl,SND_RAM+16
+        ld bc,(G_N)
+.l:     ld a,(hl)               ; high nibble          7
+        rrca                    ;                      16
+        rrca
+        rrca
+        rrca
+        and $0F                 ;                      7
+        or $90                  ;                      7
+        out ($7F),a             ;                      11
+        ld a,26                 ; delays measured in the emulator:
+.d1:    dec a
+        jr nz,.d1
+        ld a,(hl)               ; low nibble           7
+        and $0F                 ;                      7
+        or $90                  ;                      7
+        out ($7F),a             ;                      11
+        ld a,23                 ; 450 cycles between every two samples
+.d2:    dec a
+        jr nz,.d2
+        inc hl                  ;                      6
+        dec bc                  ;                      6
+        ld a,b                  ;                      4
+        or c                    ;                      4
+        jr nz,.l                ;                      12 -> 450
+        call sram_off
+        ld a,$9F                ; channel 0 off again
+        out ($7F),a
+        ret
+
+
+; ---- the overlay: more code, loaded from thumbs.pak into save RAM ------------
+; (bank 1 $9800-$9FFF, copied there at power-on; see ovl.asm). Only code that
+; never changes the memory mapping may be called from it.
+ovl_call:                       ; A = overlay function -> its A and flags
+        ld c,a                  ; (no overlay: A = 0, Z)
+        ld a,(W_OVL)
+        or a
+        ret z
+        call sram_on
+        ld a,c
+        call OVL_GO
+        push af
+        call sram_off
+        pop af
+        ret
+
+ov_pf:                          ; pack_find, with the picture chosen for this entry
+        xor a
+        call ovl_call
+        jp pack_find
+
+need_ovl:                       ; NZ if the overlay is loaded, else says so (Z)
+        ld a,(W_OVL)
+        or a
+        ret nz
+        ld de,s_needpak
+        call show_msg
+        xor a
+        ret
+s_needpak:  DB "Update thumbs.pak",0
+
+pick_start:                     ; Quick Menu -> Change Picture: a wheel of every picture
+        call need_ovl
+        jr z,.no
+        xor a
+        ld (G_RES),a
+        call view_setup
+        ld a,3
+        call ovl_call
+        jp z,view_exit          ; no picture list: back to the list
+        jp wheel_start
+.no:    ld (ix+B_REDRAW),1
+        xor a
+        ld (KEYS),a
+        ret
 
 s_added:    DB "Favourite added",0
 s_removed:  DB "Favourite removed",0
-s_full:     DB "Favourites are full",0
-s_empty:    DB "The list is empty",0
-s_gone:     DB "Game not found",0
+s_full:     DB "Favourites full",0
+s_empty:    DB "List is empty",0
+s_gone:     DB "Not found",0
 s_anykey:   DB "Press any key",0
-s_search:   DB "Searching...",0
 s_lmagic:   DB "RF01"
         INCLUDE "wheel_m.asm"
+ease_f:     DB 14,14,14,14
+int_check:                      ; NZ (A = Up/Down bits) if filling in and Up/Down was
+        ld a,(W_INT)            ; just pressed (a held button doesn't count)
+        or a
+        ret z
+        jp pad_new
+
+psg_init:   DB $9F,$BF,$DF,$FF,$80,$00  ; all silent; channel 0 period 0 = flat output
+s_sound:    DB "Sound",0
+s_ovl:      DB "Overlay",0
 feat_a_end:
         ASSERT feat_a_end <= $695B, "features_a does not fit in the Hex View space"
         DISPLAY "features A: ", /D, feat_a_end - $6492, " of 1225 bytes"
 
 ; ---- wiring --------------------------------------------------------------------
-        ORG $4096               ; ROM menu item 3: "Favourite" instead of "Hex View"
-        DB s_fav & $FF          ; (operands of "ld (iy),$27" at $4093 / "ld (iy+1),$41" at $4097)
+        ORG $4096               ; ROM menu item 3: "Favourites" instead of "Hex View"
+        DB s_favs & $FF          ; (operands of "ld (iy),$27" at $4093 / "ld (iy+1),$41" at $4097)
         ORG $409A
-        DB s_fav >> 8
+        DB s_favs >> 8
         ORG $40BC               ; Load And Start -> remember in Recently Played
         call rec_hook
         ORG $40E2               ; Load Only -> the same

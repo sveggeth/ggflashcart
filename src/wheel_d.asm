@@ -48,6 +48,8 @@ fetch_entry:                    ; entry G_IDX -> name cache, dir flag, hash; A =
         ld a,(W_SRC)
         cp 2
         jr z,.spl               ; the start-up picture
+        cp 3
+        jr z,.lib               ; Change Picture: the pack's pictures
         or a
         jr nz,.fav
         ld a,(W_VFAV)
@@ -81,6 +83,8 @@ fetch_entry:                    ; entry G_IDX -> name cache, dir flag, hash; A =
         ret
 .spl:   ld hl,s_splash          ; filed under "Splash" in thumbs.pak
         jr .virt
+.lib:   ld a,1
+        jp ovl_call
 .fav:   call sram_on            ; directory position from the favourites list
         ld hl,(G_IDX)
         add hl,hl
@@ -125,7 +129,15 @@ fav_res:                        ; G_RES: 0 Start, 1 open, 2 back
         ld hl,0
         ld (G_SEL),hl
         jp wheel_start
-.in:    ld a,(G_RES)
+.in:    ld a,(W_SRC)
+        cp 3
+        jr nz,.f
+        ld a,2                  ; a picture chosen (or not): back where we were
+        call ovl_call
+        jp z,wheel_exit         ; (to the list, if it was opened from there)
+        call root_fav
+        jp wheel_start
+.f:     ld a,(G_RES)
         or a
         jr z,.st
         dec a
@@ -169,7 +181,7 @@ fav_res:                        ; G_RES: 0 Start, 1 open, 2 back
         ld h,0
         ld (G_COUNT),hl
         call sel_clamp_c
-        ld hl,fallback_pal
+        ld hl,OS_PALETTE
         call write_palette
         xor a
         ld (W_PAL),a
@@ -193,11 +205,13 @@ sel_c:  ld hl,(G_SEL)
         ret
 
 wheel_exit:
+        ld a,5                  ; remember the centre entry (for Change Picture)
+        call ovl_call
         call wheel_clean
         jp view_exit
 
 wheel_clean:                    ; sprites off, scroll 0, tiles 1-16 blank again
-        call display_off
+        call blank_off
         ld de,$3F00
         call vaddr
         ld a,$D0
@@ -211,41 +225,5 @@ wheel_clean:                    ; sprites off, scroll 0, tiles 1-16 blank again
         djnz .clr
         jp out_vs
 
-; ---- start-up picture (once per power-on, as soon as the card can be read) --
-W_SPL       EQU $DB8A   ; 1 until the start-up picture has been shown
 
-splash:
-        xor a
-        ld (W_SPL),a
-        ld (W_FAST),a           ; (not set yet at power-on)
-        ld a,(G_HASPACK)
-        or a
-        ret z
-        call display_off
-        call CLEAR_NT
-        ld hl,NT_SHADOW
-        ld bc,$0700
-        call row_flush
-        ld a,156                ; slot 0 centred: screen y 44-99
-        call out_vs
-        ld a,2
-        ld (W_SRC),a
-        xor a
-        ld (G_K),a
-        ld h,a
-        ld l,a
-        ld (G_IDX),hl
-        call load_slot
-        xor a
-        ld (W_SRC),a
-        ld hl,G_HAVE            ; no picture in the pack: carry straight on
-        call get_k
-        or a
-        ret z
-        call display_on
-        ld b,90                 ; 1.5 seconds
-.w:     push bc
-        call VBLANK
-        pop bc
-        djnz .w
-        ret
+vs_tab:     DB 168,0,56,112          ; centre art at screen y 32-87, banner y 120-143

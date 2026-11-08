@@ -4,7 +4,7 @@
 ;   sjasmplus gridpatch.asm        (needs os-v9.mso next to this file)
 ;
 ; Patch points:
-;   $0200  version byte $09 -> $18 (Device Info shows 24; build 15)
+;   $0200  version byte $09 -> $1E (Device Info shows 30; build 21)
 ;   messages wider than the screen (20 characters) shortened in place (build 15)
 ;   $3F2B  os_init: "OS init..." -> no text (a start-up picture follows from thumbs.pak)
 ;   $4301  main menu: no "About" item; $4483-$465A (the About screen) holds wheel code
@@ -106,8 +106,6 @@ G_HLEN      EQU $DADE
 G_PK        EQU $DAE0   ; u16 index sectors
 G_POS       EQU $DAE2   ; u16 next sector of the open pack
 G_LAST      EQU $DAE4   ; u16 sector now in G_BUF ($FFFF = none)
-G_BKT       EQU $DAE6   ; [4] u16 index sector per cell ($FFFF = none)
-G_DS        EQU $DAEE   ; [4] u16 data sector per cell ($FFFF = none)
 G_STR       EQU $DB00   ; 16-byte text buffer (stack never gets this low)
 
 THUMB_TILE  EQU 160     ; wheel slots: tiles 160-447, 72 each (font copies 2-3 are rebuilt on exit)
@@ -123,7 +121,7 @@ W_PREC      EQU $DC00   ; the pack's file record, kept ($E5 bytes; stack stays a
 
 ; ============================================================================
         ORG $0200
-        DB $18
+        DB $1E
 
         ORG $07DC
         call grid_hook
@@ -171,6 +169,7 @@ grid_hook:
 
 boot_hook:                      ; RAM isn't cleared at power-on
         xor a
+        ld (W_OVL),a
         ld (W_QM),a
         ld (W_PKOK),a
         ld (W_FILT),a
@@ -227,7 +226,7 @@ view_setup:                     ; shared by the grid and the wheel
         ld (G_BUF),hl
         ld hl,W_PREC            ; the pack's file record is kept between visits
         ld (G_PREC),hl
-        ld hl,fallback_pal
+        ld hl,OS_PALETTE        ; until the pack's palette loads
         call write_palette
         ld a,(W_PKOK)           ; 0 = not looked yet, 1 = found, 2 = missing
         or a
@@ -250,9 +249,7 @@ view_setup:                     ; shared by the grid and the wheel
 
 
 view_exit:                      ; G_RES: 0 list, 1 open, 2 back
-        ld hl,512
-        call free_hl
-        ld hl,$00E5
+        ld hl,512+$00E5         ; both buffers (the OS's pool just counts)
         call free_hl
         call sel_clamp          ; (the root's Favourites entry isn't the browser's)
         ld hl,(G_SEL)
@@ -312,9 +309,9 @@ view_open:
 
 ; ----------------------------------------------------------------------------
 grid_wait:                      ; release, then press; Start reported as $80
-.rel:   call WAIT_INPUT
-        ld a,l
-        or a
+.rel:   call WAIT_INPUT         ; wait for the buttons already seen to be let go
+        ld a,(W_PREV)           ; (one pressed just now goes straight through)
+        and l
         jr nz,.rel
 .prs:   in a,($00)
         and $80
@@ -332,6 +329,7 @@ grid_wait:                      ; release, then press; Start reported as $80
         ld a,l
         or a
         jr z,.prs
+        ld (W_PREV),a           ; the wheel: this press has been seen
         ret
 
 ; ----------------------------------------------------------------------------
@@ -347,13 +345,16 @@ free_hl:
         pop af
         ret
 
+blank_off:                      ; every colour black, then the screen off: what
+        ld de,$C000             ; a dark Game Gear shows is black whichever
+        call vaddr              ; colour it picks
+        ld b,64
+        xor a
+.k:     out ($BE),a
+        djnz .k
 display_off:
         xor a
-        out ($BF),a
-        ld a,$81
-        out ($BF),a
-        ret
-
+        DB $C2                  ; (jp nz: never taken, skips the ld a,$40)
 display_on:
         ld a,$40
         out ($BF),a
@@ -375,11 +376,8 @@ restore_video:
         pop af
         pop af
         ld a,2                  ; the OS's backdrop colour again
-        out ($BF),a
-        ld a,$87
-        out ($BF),a
-        call display_on
-        ret
+        call set_r7
+        jp display_on
 
 write_palette:                  ; HL = 64 bytes; then force the text colours
         xor a
@@ -412,7 +410,7 @@ write_palette:                  ; HL = 64 bytes; then force the text colours
         out ($BE),a
         xor a
         out ($BE),a
-        out ($BF),a             ; backdrop (shown while the screen is off) =
+set_r7: out ($BF),a             ; backdrop (shown while the screen is off) =
         ld a,$87                ; colour 16, always black here; the OS uses 18,
         out ($BF),a             ; which the art palette may make white
         ret
@@ -659,10 +657,9 @@ fetch_tab:                      ; entry G_IDX of the folder -> name cache, dir f
         ret
 
 hash_name:                      ; HL = name -> G_H = djb2 of lower-case name sans extension
-        ld (G_HPTR),hl
-        ld b,0                  ; position of the last '.'
-        ld c,0                  ; length
-.scan:  ld a,(hl)
+        push hl                 ; (the hash runs in the alternate registers,
+        ld bc,0                 ;  which the OS never uses)
+.scan:  ld a,(hl)               ; B = position of the last '.', C = length
         or a
         jr z,.sd
         cp '.'
@@ -675,72 +672,64 @@ hash_name:                      ; HL = name -> G_H = djb2 of lower-case name san
         or a
         jr nz,.dot
         ld b,c
-.dot:   ld a,b
-        ld (G_HLEN),a
-        ld hl,5381
-        ld (G_H),hl
-        ld hl,0
-        ld (G_H+2),hl
-        ld a,(G_HLEN)
+.dot:   pop hl                  ; HL = name, B = characters to hash
+        exx
+        ld hl,5381              ; DE:HL = hash
+        ld de,0
+        exx
+        ld a,b
         or a
-        ret z
-.ch:    ld hl,(G_H)             ; T = H << 5
-        ld (G_T),hl
-        ld hl,(G_H+2)
-        ld (G_T+2),hl
-        ld b,5
-.sh:    ld hl,G_T
-        sla (hl)
+        jr z,.done
+.ch:    ld a,(hl)               ; next character, lower case (A-Z only)
         inc hl
-        rl (hl)
-        inc hl
-        rl (hl)
-        inc hl
-        rl (hl)
-        djnz .sh
-        ld hl,(G_H)             ; H += T
-        ld de,(G_T)
-        add hl,de
-        ld (G_H),hl
-        ld hl,(G_H+2)
-        ld de,(G_T+2)
-        adc hl,de
-        ld (G_H+2),hl
-        ld hl,(G_HPTR)          ; H += lower(c)
-        ld a,(hl)
-        inc hl
-        ld (G_HPTR),hl
         cp 'A'
         jr c,.lc
         cp 'Z'+1
         jr nc,.lc
         add a,32
-.lc:    ld e,a
-        ld d,0
-        ld hl,(G_H)
-        add hl,de
+.lc:    exx
+        push de                 ; hash = hash * 33 + c
+        push hl
+        ld b,5
+.sh:    add hl,hl
+        rl e
+        rl d
+        djnz .sh
+        pop bc
+        add hl,bc
+        ex de,hl
+        pop bc
+        adc hl,bc
+        ex de,hl
+        ld c,a
+        ld b,0
+        add hl,bc
+        jr nc,.nc
+        inc de
+.nc:    exx
+        djnz .ch
+.done:  exx
         ld (G_H),hl
-        ld hl,(G_H+2)
-        ld e,d
-        adc hl,de
-        ld (G_H+2),hl
-        ld hl,G_HLEN
-        dec (hl)
-        jr nz,.ch
+        ld (G_H+2),de
+        exx
         ret
 
 ; ---- thumbnails from the pack -> VRAM tiles + name table --------------------
 ; The pack is opened once per page; index sectors and then thumbnails are read
 ; in ascending sector order, so we only ever skip forwards.
-load_thumbs:
-        xor a
-        ld (G_K),a
-.b:     ld de,$FFFF
-        ld hl,G_VALID
-        call get_k
-        or a
-        jr z,.bs
-        call hash_ptr           ; sector = 1 + (hash & (K-1)); folders too (build 13)
+load_thumbs:                    ; the picture for slot G_K (the wheel loads one at a time)
+        call ov_pf              ; (another picture may have been chosen for it)
+        ret z                   ; not in the pack
+        push de
+        ld a,(G_K)
+        call cell_origin
+        pop de
+        call read_thumb
+        ld hl,G_HAVE
+        jp put_k
+
+pack_find:                      ; hash of slot G_K -> DE = its first data sector; Z if none
+        call hash_ptr           ; index sector = 1 + (hash & (K-1))
         ld e,(hl)
         inc hl
         ld d,(hl)
@@ -753,92 +742,15 @@ load_thumbs:
         and d
         ld d,a
         inc de
-.bs:    ld hl,G_BKT
-        call put16_k
-        ld de,$FFFF
-        ld hl,G_DS
-        call put16_k
-        ld hl,G_K
-        inc (hl)
-        ld a,(hl)
-        cp 4
-        jr nz,.b
-.nb:    ld hl,G_BKT             ; index sectors, lowest first
-        call pick_min
-        cp $FF
-        jr z,.data
-        ld (G_K),a
-        push de
-        ld de,$FFFF
-        ld hl,G_BKT
-        call put16_k
-        pop de
         call goto_sector
         or a
-        jr nz,.nb
+        jr nz,.no
         call find_hash
-        ld hl,G_DS
-        call put16_k
-        jr .nb
-.data:  ld hl,G_DS              ; thumbnails, lowest first
-        call pick_min
-        cp $FF
-        ret z
-        ld (G_K),a
-        push de
-        ld de,$FFFF
-        ld hl,G_DS
-        call put16_k
-        ld a,(G_K)
-        call cell_origin
-        pop de
-        call read_thumb
-        ld hl,G_HAVE
-        call put_k
-        jr .data
-
-put16_k:                        ; (HL + 2*G_K) = DE
-        ld a,(G_K)
-        add a,a
-        add a,l
-        ld l,a
-        ld a,h
-        adc a,0
-        ld h,a
-        ld (hl),e
-        inc hl
-        ld (hl),d
-        ret
-
-pick_min:                       ; HL = u16[4] -> A = cell with the lowest value, DE = value
-        ld a,$FF                ; ($FFFF entries are ignored; A = $FF if all are)
-        ld (G_STR),a
-        ld bc,$FFFF
-        xor a
-.l:     push af
-        ld e,(hl)
-        inc hl
-        ld d,(hl)
-        inc hl
-        push hl
-        ld h,d
-        ld l,e
-        or a
-        sbc hl,bc
-        pop hl
-        jr nc,.no
-        ld b,d
-        ld c,e
-        pop af
-        push af
-        ld (G_STR),a
-.no:    pop af
+        ld a,d
+        and e
         inc a
-        cp 4
-        jr nz,.l
-        ld d,b
-        ld e,c
-        ld a,(G_STR)
+        ret                     ; Z if $FFFF
+.no:    xor a
         ret
 
 goto_sector:                    ; DE = sector -> G_BUF; A = err
@@ -944,7 +856,9 @@ read_thumb:                     ; DE = first data sector, cell G_K at G_COL/G_RO
         ld (G_VRAM),hl
         xor a
         ld (G_SEC),a
-.sec:   call read_sector
+.sec:   call int_check          ; Up/Down while filling in: stop, show the name
+        jr nz,.ab
+        call read_sector
         or a
         jp nz,.fail
         ld hl,(G_POS)
@@ -982,6 +896,13 @@ read_thumb:                     ; DE = first data sector, cell G_K at G_COL/G_RO
         call thumb_nametable
         ld a,1
         ret
+.ab:    call abort_dir
+        ld a,(G_K)              ; the slot only has the name: art again later
+        add a,a
+        add a,(W_SLOT+1) & $FF
+        ld l,a
+        ld h,W_SLOT >> 8
+        set 7,(hl)
 .fail:  ld hl,$FFFF             ; position unknown now: skip the rest
         ld (G_POS),hl
 .bad:   xor a
@@ -1061,14 +982,10 @@ s_packfile: DB "/THUMBS/thumbs.pak",0
 s_packmagic: DB "GTPK"
 s_magic:    DB "GTH2"
 fixed_pal:  DB $00,$00, $FF,$0F         ; colour 0 black, 1 white
-fallback_pal:                           ; greys, used until a pack palette loads
-        DB $00,$00, $FF,$0F, $11,$01, $22,$02, $33,$03, $44,$04, $55,$05, $66,$06
-        DB $77,$07, $88,$08, $99,$09, $AA,$0A, $BB,$0B, $CC,$0C, $DD,$0D, $EE,$0E
-        DB $00,$00, $FF,$00, $11,$01, $22,$02, $33,$03, $44,$04, $55,$05, $66,$06
-        DB $77,$07, $88,$08, $99,$09, $AA,$0A, $BB,$0B, $CC,$0C, $DD,$0D, $EE,$0E
         INCLUDE "features_b.asm"
         INCLUDE "wheel_b.asm"
         INCLUDE "wheel_lo.asm"
+        INCLUDE "wheel_s.asm"
         INCLUDE "wheel_a.asm"
 grid_end:
         ASSERT grid_end <= $7C00, "grid code does not fit in free space"
@@ -1133,4 +1050,4 @@ wheel_t_end:
         INCBIN "font_unscii8alt.bin"
         ASSERT $ == $7F00
 
-        SAVEBIN "os-v9-wheel.mso", $0000, $8000
+        SAVEBIN "os-v9-grid.mso", $0000, $8000

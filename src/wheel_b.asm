@@ -24,7 +24,15 @@ WROW_OFS    EQU $3800 - NT_SHADOW       ; shadow address -> VRAM address
 move:                           ; A = +1 / -1
         ld (W_DIR),a
         add a,a
-        call ensure_rel         ; the slot coming into view (normally preloaded)
+        ld b,a
+        ld a,(W_FAST)
+        push af
+        ld a,$80                ; the slot coming into view: its art if it's
+        ld (W_FAST),a           ; preloaded, otherwise just its name (quick)
+        ld a,b
+        call ensure_rel
+        pop af
+        ld (W_FAST),a
         call bar_row
         ld bc,320
         call row_flush          ; take the banner off
@@ -54,6 +62,8 @@ move:                           ; A = +1 / -1
         call VBLANK
         ld a,(W_VS)
         call out_vs
+        call pad_new            ; a new Up/Down press during the scroll:
+        call nz,abort_dir       ; remember it for straight afterwards
         pop hl
         inc hl
         pop bc
@@ -70,13 +80,15 @@ move:                           ; A = +1 / -1
         ld a,(W_FAST)
         or a
         ret nz                  ; held down: no banner, nothing preloaded
-        call bar_on
-        ld a,(W_DIR)            ; preload the next one the same way
-        add a,a
-        ; fall through
+        jp wheel_fill           ; art for anything showing a name, then preload
 
 ; ---- make sure slot (centre + A) shows entry (selection + A) -----------------
 ensure_rel:
+        ld b,a
+        ld a,(W_ABORT)          ; filling in was stopped: nothing more for now
+        or a
+        ret nz
+        ld a,b
         push af
         ld hl,W_S
         add a,(hl)
@@ -100,6 +112,9 @@ ensure_rel:
         jr nz,.ld
         inc hl
         ld a,(hl)
+        cp d
+        ret z
+        or $80                  ; its art also does when only the name is asked for
         cp d
         ret z
         dec hl
@@ -173,7 +188,6 @@ row_flush:                      ; HL = shadow address, BC = bytes -> VRAM
 
 
 ease:       DB 2,4,6,8,8,8,8,6,4,2
-ease_f:     DB 14,14,14,14
 W_FAST      EQU $DB57   ; $80 while Up/Down is held (fast scrolling)
 
 match_list:                     ; HL = B bytes, DE = list of B-byte names, 0 ends -> Z if found
