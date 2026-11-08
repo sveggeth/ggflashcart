@@ -34,6 +34,17 @@ was developed and tested on.
 
 ---
 
+TL;DR
+
+If you have Roms with the standard naming convention, the wheel art in thumbs.pak automatically show.
+
+1. Download /patch/ folder.
+3. Download 'os-v9.mso' from (https://krikzz.com/pub/support/master-everdrive/v1/os-bin/) and put in patch folder.
+4. Run python3 /patch/apply_patch.py os-v9.mso and copy os-v9-wheel.mso to the SD card.
+5. Download the thumbs.pak and put in a /thumbs/ folder on the SD card.
+6. Start the game gear holding Button 2 and right select os-v9-wheel.mso press 1 and update OS.
+7. Enjoy!
+
 ## What it does
 
 * **Wheel view**: the cart starts in a vertical wheel of art, three games
